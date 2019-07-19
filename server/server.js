@@ -2,6 +2,7 @@ const app = require('express')();
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const passport = require('passport');
+const cors = require('cors');
 const { dbConnect } = require('./db/mongoose');
 const usersRouter = require('./routes/users');
 const authRouter = require('./routes/auth');
@@ -18,8 +19,8 @@ const { PORT } = require('./config');
 //   }
 // );
 
-app.use('/api/auth', authRouter);
-app.use('/api/users', usersRouter);
+app.use('/api/auth', cors(), authRouter);
+app.use('/api/users', cors(), usersRouter);
 
 // Catch-all 404
 app.use(function(req, res, next) {

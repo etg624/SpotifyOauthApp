@@ -1,26 +1,43 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import qs from 'query-string';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { serverData: {} };
+  }
+
+  componentDidMount() {
+    const parsed = qs.parse(window.location.search);
+    const accessToken = parsed.access_token;
+    if (!accessToken) return;
+
+    fetch('https://api.spotify.com/v1/me', {
+      headers: { Authorization: 'Bearer ' + accessToken }
+    })
+      .then(response => response.json())
+      .then(data =>
+        this.setState({
+          user: {
+            name: data.display_name
+          }
+        })
+      );
+  }
+
+  render() {
+    return (
+      <div>
+        <button
+          onClick={() =>
+            (window.location = 'http://localhost:8080/api/auth/login')
+          }
         >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+          Sign in with Spotify
+        </button>
+      </div>
+    );
+  }
 }
 
 export default App;

@@ -1,15 +1,12 @@
 const router = require('express').Router();
 const mogoose = require('mongoose');
 const request = require('request-promise');
-const {
-  SPOTIFY_CLIENT_ID,
-  SPOTIFY_CLIENT_SECRET,
-  FRONTEND_URI
-} = require('../config');
+const { SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET } = require('../config');
 
 router.get('/login', (req, res, next) => {
   const scopes = 'user-read-private user-read-email';
   const redirect_uri = 'http://localhost:8080/api/auth/callback';
+
   res.redirect(
     `https://accounts.spotify.com/authorize?response_type=code&client_id=${SPOTIFY_CLIENT_ID}${
       scopes ? '&scope=' + encodeURIComponent(scopes) : ''
@@ -33,9 +30,8 @@ router.get('/callback', (req, res, next) => {
   };
   request.post(options, (error, response, body) => {
     const access_token = body.access_token;
-    console.log(body);
-
-    res.redirect(`${FRONTEND_URI}?access_token=${access_token}`);
+    let uri = process.env.FRONTEND_uri || 'http://localhost:3000';
+    res.redirect(`${uri}?access_token=${access_token}`);
   });
 });
 module.exports = router;
