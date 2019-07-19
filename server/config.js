@@ -6,5 +6,5 @@ module.exports = {
     process.env.TEST_DATABASE_URL || 'mongodb://localhost:27017/rotify_test',
   SPOTIFY_CLIENT_ID: process.env.SPOTIFY_CLIENT_ID,
   SPOTIFY_CLIENT_SECRET: process.env.SPOTIFY_CLIENT_SECRET,
-  FRONTEND_URI = process.env.FRONTEND_URI || 'http:localhost:3000'
+  FRONTEND_URI: process.env.FRONTEND_URI || 'http:localhost:3000'
 };
