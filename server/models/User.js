@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
 
 const userSchema = new mongoose.Schema({
-  firstName: String,
-  lastName: String,
-  username: { type: String, required: true, unique: true }
+  displayName: String,
+  accessToken: String,
+  refreshToken: String,
+  spotifyId: String
 });
 
 userSchema.set('toJSON', {

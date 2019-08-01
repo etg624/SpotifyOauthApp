@@ -1,4 +1,5 @@
-const app = require('express')();
+const express = require('express');
+const app = express();
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const passport = require('passport');
@@ -7,7 +8,9 @@ const { dbConnect } = require('./db/mongoose');
 const usersRouter = require('./routes/users');
 const authRouter = require('./routes/auth');
 
+app.use(express.json());
 app.use(morgan('dev'));
+
 const { PORT } = require('./config');
 
 // app.get(

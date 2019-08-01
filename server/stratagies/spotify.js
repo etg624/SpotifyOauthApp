@@ -8,7 +8,7 @@ passport.use(
     clientSecret: SPOTIFY_CLIENT_SECRET,
     callbackURL: 'http://localhost:8888/auth/spotify/callback'
   }),
-  function(accessToken, refreshToken, expires_in, profile, done) {
+  function(accessToken, SET_ACCESS_TOKEN_SUCCESS, expires_in, profile, done) {
     User.findOrCreate({ spotifyId: profile.id }, function(err, user) {
       return done(err, user);
     });

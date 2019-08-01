@@ -1,17 +1,10 @@
 const router = require('express').Router();
 const mongoose = require('mongoose');
-const User = require('../models/user');
+const User = require('../models/User');
 
-/* ========== GET USER ========== */
-// router.get('/:id', (req, res, next) => {
-//   const userId = req.user.id;
-//   console.log('User is ', req.user, 'User ID is', userId);
-//   // res.json(userId);
-// });
-
-/* ========== POST USERS ========== */
-router.post('/', (req, res, next) => {
-  res.send('USER!');
+router.get('/:id', (req, res, next) => {
+  const { id } = req.params;
+  return User.findById(id).then(user => console.log(user));
 });
 
 module.exports = router;
