@@ -12,6 +12,12 @@ export const setTokenExpiration = expiresIn => ({
   expiresIn
 });
 
+export const SET_REFRESH_TOKEN_SUCCESS = 'SET_REFRESH_TOKEN_SUCCESS';
+export const setRefreshToken = refreshToken => ({
+  type: SET_REFRESH_TOKEN_SUCCESS,
+  refreshToken
+});
+
 export const LOGGED_IN = 'LOGGED_IN';
 export const loggedIn = currentUser => ({
   type: LOGGED_IN,
