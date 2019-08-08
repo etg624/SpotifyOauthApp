@@ -28,10 +28,6 @@ class Login extends Component {
 
   render() {
     const { loggedIn } = this.props.auth;
-
-    if (loggedIn) {
-      return <Redirect to={`/profile/`} />;
-    }
     return (
       <div>
         <button
