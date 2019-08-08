@@ -5,9 +5,9 @@ import qs from 'query-string';
 import {
   setAccessToken,
   setTokenExpiration,
-  logOut,
-  logIn
-} from '../actions/auth';
+  logIn,
+  setRefreshToken
+} from '../actions/auth/auth';
 import { connect } from 'react-redux';
 
 class Login extends Component {
@@ -17,17 +17,17 @@ class Login extends Component {
 
   componentDidMount() {
     const parsed = qs.parse(window.location.search);
-    const { accessToken, expiresIn } = parsed;
+    const { accessToken, expiresIn, refreshToken } = parsed;
     const { dispatch } = this.props;
     dispatch(setAccessToken(accessToken));
     dispatch(setTokenExpiration(expiresIn));
+    dispatch(setRefreshToken(refreshToken));
     dispatch(logIn());
 
     if (!accessToken) return;
   }
 
   render() {
-    const { loggedIn } = this.props.auth;
     return (
       <div>
         <button

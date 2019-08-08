@@ -25,7 +25,7 @@ export const loggedIn = currentUser => ({
 });
 
 export const logIn = () => (dispatch, getState) => {
-  const { accessToken } = getState().auth;
+  const { accessToken, refreshToken } = getState().auth;
 
   let data;
 
@@ -44,7 +44,6 @@ export const logIn = () => (dispatch, getState) => {
     .then(postData => {
       console.log(postData);
       const { display_name, id } = postData;
-
       fetch(`${API_BASE_URL}/auth/login`, {
         method: 'POST',
         headers: {
@@ -54,7 +53,8 @@ export const logIn = () => (dispatch, getState) => {
         body: JSON.stringify({
           displayName: display_name,
           spotifyId: id,
-          accessToken
+          accessToken,
+          refreshToken
         })
       });
     })

@@ -43,12 +43,13 @@ router.get('/callback', (req, res, next) => {
 });
 
 router.post('/login', (req, res, next) => {
-  const { accessToken, displayName, spotifyId } = req.body;
+  const { accessToken, displayName, spotifyId, refreshToken } = req.body;
 
-  const newUser = { displayName, accessToken, spotifyId };
+  const newUser = { displayName, accessToken, spotifyId, refreshToken };
 
-  return User.findOne(spotifyId).then(user => {
+  return User.findOne({ spotifyId }).then(user => {
     if (user) {
+      console.log('HERE');
       return user;
     } else {
       return User.create(newUser);
