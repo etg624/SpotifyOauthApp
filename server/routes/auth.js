@@ -34,7 +34,6 @@ router.get('/callback', (req, res, next) => {
   };
   request.post(options, (error, response, body) => {
     const { access_token, expires_in, refresh_token } = body;
-
     let uri = process.env.FRONTEND_uri || 'http://localhost:3000';
     res.redirect(
       `${uri}?accessToken=${access_token}&expiresIn=${expires_in}&refreshToken=${refresh_token}`
